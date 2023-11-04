@@ -1,0 +1,79 @@
+/* TodoList.css */
+.todo-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .todo-list-heading {
+    text-align: center;
+  }
+  
+  .todo-list-heading h2 {
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+  
+  .todo-list-logout {
+    text-align: right;
+    margin-bottom: 10px;
+  }
+  
+  .todo-list-logout button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .todo-list-logout button:hover {
+    background-color: #0056b3;
+  }
+  
+  .todo-list-conatainer {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .todo-list-li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .todo-list-li:last-child {
+    border: none;
+  }
+  
+  s {
+    text-decoration: line-through;
+  }
+  
+  .todo-list-input input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .todo-list-buttton button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .todo-list-buttton button:hover {
+    background-color: #0056b3;
+  }
+  

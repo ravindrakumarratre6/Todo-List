@@ -1,24 +1,23 @@
-import "./css/Todolist.css";
+import "../css/Todolist.css";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
 function TodoList({ user, onLogout }) {
-
   const [tasks, setTasks] = useState([]);
-  const [newTaskText, setNewTaskText] = useState('');
+  const [newTaskText, setNewTaskText] = useState("");
 
   // Load tasks from local storage when the component mounts
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem('tasks')) || [];
+    const storedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
     setTasks(storedTasks);
   }, []);
 
   const saveTasksToLocalStorage = (updatedTasks) => {
-    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   };
 
   const handleAddTask = () => {
-    if (newTaskText.trim() === '') return;
+    if (newTaskText.trim() === "") return;
 
     const taskId = Date.now(); // Unique ID using timestamp
     const newTask = {
@@ -32,7 +31,7 @@ function TodoList({ user, onLogout }) {
     setTasks(updatedTasks);
     saveTasksToLocalStorage(updatedTasks);
 
-    setNewTaskText('');
+    setNewTaskText("");
   };
 
   const handleEditTask = (taskId, newText) => {
@@ -67,28 +66,38 @@ function TodoList({ user, onLogout }) {
   };
 
   return (
-    <div>
-      <h2>Todo List for {user.username}</h2>
-      <button onClick={onLogout}>Logout</button>
-      <ul>
+    <div className="todo-container">
+      <div className="todo-list-logout">
+        <button onClick={onLogout}>Logout</button>
+      </div>
+      <div className="todo-list-heading">
+        <h2>Todo List for {user.username}</h2>
+      </div>
+      <ul className="todo-list-conatainer">
         {tasks.map((task) => (
-          <li key={task.id}>
+          <li key={task.id} className="todo-list-li">
             {task.completed ? <s>{task.text}</s> : task.text}
-            <button onClick={() => handleEditTask(task.id, 'New Text')}>Edit</button>
+            <button onClick={() => handleEditTask(task.id, "New Text")}>
+              Edit
+            </button>
             <button onClick={() => handleToggleComplete(task.id)}>
-              {task.completed ? 'Undo' : 'Complete'}
+              {task.completed ? "Undo" : "Complete"}
             </button>
             <button onClick={() => handleDeleteTask(task.id)}>Delete</button>
           </li>
         ))}
       </ul>
-      <input
-        type="text"
-        placeholder="Add a new task"
-        value={newTaskText}
-        onChange={(e) => setNewTaskText(e.target.value)}
-      />
-      <button onClick={handleAddTask}>Add Task</button>
+      <div className="todo-list-input">
+        <input
+          type="text"
+          placeholder="Add a new task"
+          value={newTaskText}
+          onChange={(e) => setNewTaskText(e.target.value)}
+        />
+      </div>
+      <div className="todo-list-buttton">
+        <button onClick={handleAddTask}>Add Task</button>
+      </div>
     </div>
   );
 }
