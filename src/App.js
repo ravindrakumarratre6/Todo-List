@@ -1,31 +1,64 @@
-import './App.css';
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
-import Login from './Login';
-import Registration from './Registration';
-import TodoList from './TodoList';
-
+import React, { useState } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/Login";
+import Registration from "./components/Registration";
+import TodoList from "./components/TodoList";
 function App() {
-  const [user, setUser] = useState(null);
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
+  const [registeredUsers, setRegisteredUsers] = useState([]);
+  const handleRegistration = (user) => {
+    // Handle user registration and store it in local storage.
+    const updatedUsers = [...registeredUsers, user];
+    setRegisteredUsers(updatedUsers);
+    localStorage.setItem("registeredUsers", JSON.stringify(updatedUsers));
 
-  const handleLogin = (authenticatedUser) => {
-    setUser(authenticatedUser);
+  };
+
+  const handleLogin = (user) => {
+    setAuthenticatedUser(user);
   };
 
   const handleLogout = () => {
-    setUser(null);
+    setAuthenticatedUser(null);
   };
-console.log("user",user)
+
   return (
-    <div className='App'>
+    <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/login" element={user ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
-          <Route path="/register" element={user ? <Navigate to="/" /> : <Registration />} />
+          <Route
+            path="/login"
+            element={
+              authenticatedUser ? (
+                <Navigate to="/todo" />
+              ) : (
+                <Login onLogin={handleLogin} />
+              )
+            }
+          />
           <Route
             path="/"
-            element={user ? <TodoList user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}
+            element={
+              authenticatedUser ? (
+                <Navigate to="/" />
+              ) : (
+                <Registration
+                  onRegistration={handleRegistration}
+                  onRegisteredUsers={registeredUsers}
+                />
+              )
+            }
+          />
+
+          <Route
+            path="/todo"
+            element={
+              authenticatedUser ? (
+                <TodoList user={authenticatedUser} onLogout={handleLogout} />
+              ) : (
+                <Navigate to="/login" />
+              )
+            }
           />
         </Routes>
       </BrowserRouter>
